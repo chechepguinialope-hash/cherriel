@@ -1,0 +1,324 @@
+    {% load static %} <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Cherriel Rose Guinialope | Portfolio</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style> /* Fixed the <<style> error here */
+        :root {
+            /* Pink and Mint Palette */
+            --mint-green: #D1F2EB;
+            --blush-pink: #FADBD8;
+            --deep-mint: #45B39D;
+            --dusty-rose: #D7A49A; /* Keeping this for text contrast */
+
+            /* The Background Gradient: Pink to Mint */
+            --soft-gradient: linear-gradient(135deg, var(--blush-pink) 50%, var(--mint-green) 50%);
+
+            /* Transition/Action Gradient */
+            --primary-gradient: linear-gradient(45deg, var(--dusty-rose) 0%, var(--mint-green) 100%);
+            --accent-color: var(--deep-mint);
+        }
+
+        body {
+            /* Changed from 'mintcream' to your custom Pink/Mint gradient */
+            background: var(--soft-gradient) !important;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #4A4A4A; /* Slightly softer than pure black */
+            margin: 0;
+            height: 100vh;
+        }
+
+        /* Keep sections transparent so the pink/mint background shows through */
+        section {
+            background-color: transparent !important;
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            padding-top: 120px;
+        }
+
+        /* If your Home section is still white, this forces it to match */
+        #home {
+            background-color: transparent !important;
+        }
+
+        /* Updated Text Gradient for Pink/Mint feel */
+        .text-gradient {
+            background: darkslategray;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        /* --- 1. Navigation & Transition Layers --- */
+        .page-reveal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--primary-gradient);
+            z-index: 9999;
+            transform-origin: bottom;
+            animation: reveal-out 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+        }
+        @keyframes reveal-out {
+            0% { transform: scaleY(1); }
+            100% { transform: scaleY(0); }
+        }
+
+        .content-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        section {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(100px);
+            filter: blur(10px);
+            padding-top: 120px;
+        }
+
+        section.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+            filter: blur(0);
+            z-index: 10;
+        }
+
+        section.exit {
+            opacity: 0;
+            transform: translateX(-100px);
+            filter: blur(10px);
+        }
+
+        /* --- 2. Components --- */
+        .about-card {
+            background: #FFFFFF;
+            transition: all 0.4s ease;
+            border: 1px solid var(--ivory);
+        }
+        .about-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--dusty-rose);
+            /* Subtle Baby Blue Shadow */
+            box-shadow: 0 15px 30px rgba(164, 177, 186, 0.25) !important;
+        }
+
+        /* Buttons: Rose Pink to Mint on hover */
+        .btn-gradient {
+            background: #FFB0B4; /* Dusty Coral/Pink */
+            border: 2px solid black;
+            color: black;
+            font-size: 20px;
+            transition: 0.3s;
+            width: 300px;
+        }
+        .btn-gradient:hover {
+            background: white;
+            transform: translateY(-3px);
+            color: black;
+        }
+
+        .portfolio-image {
+            border-color: var(--nude) !important;
+            transition: 0.5s;
+        }
+        .portfolio-image:hover { transform: scale(1.05); }
+
+        /* --- 3. Skills & Badges --- */
+        .skill-badge {
+            background: var(--ivory);
+            color: #5D5752;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid var(--baby-blue);
+            display: inline-block;
+            animation: bubbleFloat 3s ease-in-out infinite;
+        }
+        @keyframes bubbleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .progress {
+            height: 10px;
+            border-radius: 10px;
+            background-color: #EAE5E1;
+            overflow: hidden;
+        }
+        /* Update Progress Bars to Mint */
+        .progress-bar {
+            width: 0%;
+            background: linear-gradient(90deg, var(--deep-mint), #A9DFBF);
+            transition: width 1.5s cubic-bezier(0.1, 0, 0.2, 1) !important;
+        }
+
+        /* Horizontal lines under titles */
+        .bg-primary {
+            background-color: var(--dusty-rose) !important;
+        }
+    </style>
+    </head>
+    <body>
+        <div class="page-reveal"></div>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="#"><span class="text-gradient">PORTFOLIO</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto fw-semibold">
+                        <li class="nav-item"><a class="nav-link" href="#home">HOME</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">ABOUT</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#skills">SKILLS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#education">EDUCATION</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">CONTACT</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content-wrapper">
+            <section id="home" class="active">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <h1 class="display-3 fw-bold">Hi, I'm <br>
+                                <span class="text-gradient">Cherriel Rose Guinialope</span>
+                            </h1>
+                            <p class="h3 fw-light text-muted mb-4">Designer | Developer | Consultant</p>
+                            <p class="lead text-muted mb-5">Creating high-impact digital experiences with a focus on clean, modern design.</p>
+                            <a href="#skills" class="btn btn-gradient btn-lg px-5 py-3 nav-link">View My Work</a>
+                        </div>
+                        <div class="col-lg-6 text-center">
+                            <img src="{% static 'profile.jpg' %}" alt="Portrait" class="portfolio-image rounded-circle shadow-lg border border-5 border-white w-50">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about">
+                <div class="container">
+                    <div class="text-center mb-5">
+                        <h2 class="fw-bold">About Me</h2>
+                        <div class="mx-auto" style="height: 3px; width: 60px; background-color: var(--accent-color);"></div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-4">
+                            <div class="p-4 about-card rounded-4 shadow-sm h-100">
+                                <h4 class="text-gradient">Design</h4>
+                                <p class="text-muted">Turning complex ideas into simple, beautiful interfaces.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="p-4 about-card rounded-4 shadow-sm h-100">
+                                <h4 class="text-gradient">Development</h4>
+                                <p class="text-muted">Clean code that scales. Built with the latest frameworks.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="p-4 about-card rounded-4 shadow-sm h-100">
+                                <h4 class="text-gradient">Consulting</h4>
+                                <p class="text-muted">Strategizing for growth and digital transformation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="skills">
+                <div class="container">
+                    <div class="text-center mb-5">
+                        <h2 class="fw-bold">Skills & Expertise</h2>
+                    </div>
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        {% for skill in skills %}
+                        <div class="col">
+                            <div class="p-4 about-card rounded-4 shadow-sm">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="skill-badge">{{ skill.name }}</span>
+                                    <span class="fw-bold text-muted small">{{ skill.proficiency }}%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" data-value="{{ skill.proficiency }}"></div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <section id="education">
+                <div class="container text-center">
+                    <h2 class="fw-bold">Education</h2>
+                    <div class="mx-auto" style="height: 3px; width: 60px; background-color: var(--accent-color);"></div>
+                    <div class="mt-5">
+                        <div class="p-4 bg-white rounded-4 shadow-sm d-inline-block">
+                            <h4 class="text-gradient">Your Degree/School Name</h4>
+                            <p class="text-muted">Graduation Year | Additional Details</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact">
+                <div class="container text-center">
+                    <h2 class="fw-bold">Contact Me</h2>
+                    <div class="mx-auto mb-5" style="height: 3px; width: 60px; background-color: var(--accent-color);"></div>
+                    <p class="lead">Let's work together! Reach out via email.</p>
+                    <a href="mailto:your-email@example.com" class="btn btn-gradient btn-lg px-5">Get In Touch</a>
+                </div>
+            </section>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            function fillBars(section) {
+                section.querySelectorAll('.progress-bar').forEach(bar => {
+                    const target = bar.getAttribute('data-value');
+                    setTimeout(() => { bar.style.width = target + '%'; }, 100);
+                });
+            }
+            function resetBars(section) {
+                section.querySelectorAll('.progress-bar').forEach(bar => { bar.style.width = '0%'; });
+            }
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    const currentSection = document.querySelector('section.active');
+
+                    if (targetSection === currentSection) return;
+
+                    if (currentSection) {
+                        currentSection.classList.remove('active');
+                        currentSection.classList.add('exit');
+                        if (currentSection.id === 'skills') resetBars(currentSection);
+                    }
+
+                    targetSection.classList.remove('exit');
+                    targetSection.classList.add('active');
+
+                    if (targetId === '#skills') fillBars(targetSection);
+
+                    setTimeout(() => { if (currentSection) currentSection.classList.remove('exit'); }, 700);
+                });
+            });
+        </script>
+    </body>
+    </html>
